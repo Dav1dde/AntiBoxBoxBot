@@ -87,11 +87,13 @@ class AntiBoxBoxBot(object):
             logging.info('NOT ENOUGH ANSWERS')
             return
 
-        answers = self._recorded_messages[usernames.pop()]
-        for username in usernames:
+        answers = self._recorded_messages[usernames[0]]
+        for username in usernames[1:]:
             answers = answers & self._recorded_messages[username]
 
-        logging.info('ANSWERS: {}'.format(answers))
+        logging.info('ANSWERS: {}, {}'.format(
+            answers, [self._recorded_messages[u] for u in usernames])
+        )
 
         if len(answers) == 1:
             return answers.pop()
