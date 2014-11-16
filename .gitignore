@@ -1,0 +1,5 @@
+*.pyc
+*.kdev4
+__pycache__
+awirc
+question.db
