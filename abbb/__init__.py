@@ -84,6 +84,7 @@ class AntiBoxBoxBot(object):
         if len(usernames) == 1 and \
                 not len(self._recorded_messages[usernames[0]]) == 1:
             # only one user answered, but with multiple message
+            logging.info('NOT ENOUGH ANSWERS')
             return
 
         answers = self._recorded_messages[usernames.pop()]
