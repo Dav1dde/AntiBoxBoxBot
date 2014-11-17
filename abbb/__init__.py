@@ -82,17 +82,22 @@ class AntiBoxBoxBot(object):
         logging.debug('RECORDED MESSAGE ({}): {}'.format(source.nick, text))
 
     def find_answer(self, users):
-        usernames = [u[0].lower() for u in users]
-
-        if len(usernames) == 1 and \
-                not len(self._recorded_messages[usernames[0]]) == 1:
-            # only one user answered, but with multiple message
-            logging.info('NOT ENOUGH ANSWERS')
+        if len(users) == 0:
+            logging.debug('len(users) == 0')
             return
 
-        answers = self._recorded_messages[usernames[0]]
-        for username in usernames[1:]:
-            answers = answers & self._recorded_messages[username]
+        usernames = [u[0].lower() for u in users]
+
+        answers = None
+        for username in usernames:
+            answers = self._recorded_messages[username]
+            if len(answers) == 1:
+                break
+
+        if len(answers) > 1:
+            answers = self._recorded_messages[usernames[0]]
+            for username in usernames[1:]:
+                answers = answers & self._recorded_messages[username]
 
         logging.info('ANSWERS: {}, {}'.format(
             answers, [self._recorded_messages[u] for u in usernames])
