@@ -1,5 +1,6 @@
 from collections import defaultdict
 import logging
+import gevent
 import awirc
 import re
 
@@ -64,7 +65,9 @@ class AntiBoxBoxBot(object):
             answer = self.database.get(q)
             if answer:
                 logging.info('ANSWER: {}'.format(answer))
+                gevent.sleep(3)
                 self.client.privmsg(target, answer)
+                logging.info('ANSWERED: {}'.format(answer))
             else:
                 self._current_question = q
 
