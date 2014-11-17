@@ -106,6 +106,8 @@ class AntiBoxBoxBot(object):
         if len(answers) == 1:
             return answers.pop()
 
+        logging.info('AMBIGUOUS ANSWERS - SKIPPED')
+
         return None
 
 
