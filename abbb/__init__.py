@@ -35,10 +35,24 @@ class AntiBoxBoxBot(object):
 
     def on_pub_msg(self, _, source, target, text):
         if source.nick.lower() == self.BOTNAME:
+            dc = re.match(
+                r'{}\s+is\s+disconnecting\.'.format(self.BOTNAME),
+                text, re.IGNORECASE
+            )
+
+            if dc:
+                return self.on_bot_disconnecting()
+
             return self.on_pub_bot_msg(target, text)
 
         if self._current_question:
             self.record_message(source, text)
+
+    def on_bot_disconnecting(self):
+        logging.info('BOT DISCONNCTED')
+
+        self._current_question = None
+        self._recorded_messages = defaultdict(set)
 
     def on_pub_bot_msg(self, target, text):
         logging.debug('BOT: {}'.format(text))
@@ -109,9 +123,3 @@ class AntiBoxBoxBot(object):
         logging.info('AMBIGUOUS ANSWERS - SKIPPED')
 
         return None
-
-
-
-
-
-
