@@ -52,7 +52,8 @@ def is_question_end(text):
         text.startswith('no one answered correctly')
     e = text.endswith('seconds to next question.') or \
         text.endswith('seconds.')
-    return s and e
+    l = 'for winning the random lottery.' not in text
+    return s and e and l
 
 
 def question_end_users(text):
