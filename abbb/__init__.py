@@ -86,7 +86,7 @@ class AntiBoxBoxBot(object):
         def normalize_answer(text):
             # todo
             text = text.strip().lower()
-            text = re.sub('[^\w, ^\d, ^\s]', '', text)
+            # text = re.sub('[^\w, ^\d, ^\s]', '', text)
             return text
 
         self._recorded_messages[source.nick.lower()].add(
