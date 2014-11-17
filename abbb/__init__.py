@@ -1,6 +1,7 @@
 from collections import defaultdict
 import logging
 import awirc
+import re
 
 from abbb.question import (
     Question, is_question, is_question_end, question_end_users
@@ -23,7 +24,7 @@ class AntiBoxBoxBot(object):
     def run(self):
         self.connect()
 
-        self.client.worker.join()
+        self.client.gevent_pool.join()
 
     def connect(self):
         # join flosd channel on startup
