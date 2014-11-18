@@ -67,7 +67,7 @@ def question_end_users(text):
         answer = t.rsplit('.', 2)[0].strip('"').strip()
 
         if 'or' in answer:
-            answer = answer.split('or')[0]
+            answer = answer.split('or')[-1].strip()
 
     return (
         answer,
