@@ -66,6 +66,9 @@ def question_end_users(text):
         t = t.split(':', 1)[1]
         answer = t.rsplit('.', 2)[0].strip('"').strip()
 
+        if 'or' in answer:
+            answer = answer.split('or')[0]
+
     return (
         answer,
         _REGEX_QUESTION_END.findall(text) or _REGEX_QUESTION_END2.findall(text)
